@@ -1,0 +1,44 @@
+% [Chris Bender]
+% [bender86@students.rowan.edu]
+% Course: MATLAB Programming - Fall 2024
+% Assignment: Homework 2
+% Date: [10-11-2024]
+
+
+% Question 4
+
+
+%  Defines planet distances and sizes
+planet_distances = [0.39, 0.72, 1.00, 1.52, 5.20, 9.58, 19.22, 30.06]; % AU
+planet_sizes = [0.38, 0.95, 1.00, 0.53, 11.21, 9.45, 4.01, 3.88]; % Relative sizes (Earth = 1)
+
+% Creates figure
+figure;
+
+% creates Scatter plot
+subplot(2, 1, 1);
+hold on;
+planet_names = {'Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'};
+colors = lines(length(planet_names));
+
+for i = 1:length(planet_names)
+    scatter(planet_distances(i), planet_sizes(i) * 100, 100, 'filled', 'MarkerFaceColor', colors(i, :));
+end
+
+title('Planet Distances vs. Sizes');
+xlabel('Distance from Sun (AU)');
+ylabel('Relative Size (scaled by 100)');
+legend(planet_names, 'Location', 'best');
+grid on;
+
+% makes Bar chart
+subplot(2, 1, 2);
+bar(planet_distances, 'FaceColor', [0 0.5 0.8]);
+set(gca, 'XTickLabel', planet_names);
+title('Planet Distances from the Sun');
+xlabel('Planets');
+ylabel('Distance (AU)');
+grid on;
+
+% Saves the figure as an image file
+saveas(gcf, 'solar_system_visualization.png');
