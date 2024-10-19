@@ -1,0 +1,24 @@
+% [Chris Bender]
+% [bender86@students.rowan.edu]
+% Course: MATLAB Programming - Fall 2024
+% Assignment: Homework 2
+% Date: [10-11-2024]
+
+% QUESTION 1
+
+% data of population growth per year 
+population = [5000, 5200, 5350, 5600, 5800];
+
+% how the growth rate is found 
+growth_rate = (population(2:end) - population(1:end-1)) ./ population(1:end-1);
+
+% creates 2x5 matrix 
+pop_data = [population; [0, growth_rate]];
+
+% prints the formatted table 
+
+fprintf('Year\tPopulation\tGrowth Rate\n');
+for i = 1:length(population)
+    fprintf('%d\t%d\t%.2f%%\n', i, population(i), pop_data(2, i) * 100);
+end
+
