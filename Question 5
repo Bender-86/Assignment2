@@ -1,0 +1,60 @@
+% [Chris Bender]
+% [bender86@students.rowan.edu]
+% Course: MATLAB Programming - Fall 2024
+% Assignment: Homework 2
+% Date: [10-11-2024]
+
+
+
+% Question 5
+
+fileID = fopen('stock_data.txt', 'w');
+prices = rand(30, 1) * 100; % Random prices between 0 and 100
+for i = 1:length(prices)
+    fprintf(fileID, '%.2f\n', prices(i)); % Write each price on a new line
+end
+fclose(fileID);
+
+% Reads stock data from 'stock_data.txt'
+stock_data = readmatrix('stock_data.txt');
+
+% Calculates the statistics
+average_price = mean(stock_data);
+highest_price = max(stock_data);
+lowest_price = min(stock_data);
+price_increases = sum(diff(stock_data) > 0); % Number of days stock price increased
+
+% Prints the calculations  
+fprintf('Average Closing Price: %.2f\n', average_price);
+fprintf('Highest Closing Price: %.2f\n', highest_price);
+fprintf('Lowest Closing Price: %.2f\n', lowest_price);
+fprintf('Number of Days Price Increased: %d\n', price_increases);
+
+% Creates a line plot
+figure;
+plot(stock_data, '-o', 'DisplayName', 'Daily Closing Prices', 'Color', [0 0.5 0.8]);
+hold on;
+yline(average_price, '--r', 'Average Price', 'LabelHorizontalAlignment', 'left', 'DisplayName', 'Average Price');
+yline(highest_price, '--g', 'Highest Price', 'LabelHorizontalAlignment', 'left', 'DisplayName', 'Highest Price');
+yline(lowest_price, '--b', 'Lowest Price', 'LabelHorizontalAlignment', 'left', 'DisplayName', 'Lowest Price');
+
+% Adds labels and titles
+xlabel('Days');
+ylabel('Closing Price ($)');
+title('Stock Closing Prices Over 30 Days');
+legend('Location', 'best');
+grid on;
+
+% Saves the plot as an image file
+saveas(gcf, 'stock_analysis.png');
+
+% Writes a summary of the analysis to 'stock_summary.txt'
+summary_fileID = fopen('stock_summary.txt', 'w');
+fprintf(summary_fileID, 'Stock Analysis Summary\n');
+fprintf(summary_fileID, '----------------------\n');
+fprintf(summary_fileID, 'Average Closing Price: %.2f\n', average_price);
+fprintf(summary_fileID, 'Highest Closing Price: %.2f\n', highest_price);
+fprintf(summary_fileID, 'Lowest Closing Price: %.2f\n', lowest_price);
+fprintf(summary_fileID, 'Number of Days Price Increased: %d\n', price_increases);
+fclose(summary_fileID);
+
